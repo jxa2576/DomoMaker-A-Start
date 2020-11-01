@@ -6,7 +6,7 @@ var handleDomo = function handleDomo(e) {
     width: 'hide'
   }, 350);
 
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
+  if ($("#domoName").val() == '' || $("#domoAge").val() == '' || $("#domoCool").val() == '') {
     handleError("RAWR! All fields are required");
     return false;
   }
@@ -39,6 +39,13 @@ var DomoForm = function DomoForm(props) {
     type: "text",
     name: "age",
     placeholder: "Domo Age"
+  }), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "cool"
+  }, "Coolness: "), /*#__PURE__*/React.createElement("input", {
+    id: "domoCool",
+    type: "text",
+    name: "cool",
+    placeholder: "Domo Coolness"
   }), /*#__PURE__*/React.createElement("input", {
     type: "hidden",
     name: "_csrf",
@@ -48,6 +55,12 @@ var DomoForm = function DomoForm(props) {
     type: "submit",
     value: "Make Domo"
   }));
+};
+
+var handleDelete = function handleDelete(e) {
+  e.preventDefault(); //sendAjax('POST', $("#deleteForm").attr("action"), $("#deleteForm").serialize());
+
+  return false;
 };
 
 var DomoList = function DomoList(props) {
@@ -71,7 +84,35 @@ var DomoList = function DomoList(props) {
       className: "domoName"
     }, " Name: ", domo.name), /*#__PURE__*/React.createElement("h3", {
       className: "domoAge"
-    }, " Age: ", domo.age));
+    }, " Age: ", domo.age), /*#__PURE__*/React.createElement("h3", {
+      className: "domoCool"
+    }, "Coolness: ", domo.cool), /*#__PURE__*/React.createElement("form", {
+      id: "deleteForm",
+      onSubmit: handleDelete,
+      name: "deleteForm",
+      action: "/delete",
+      method: "POST",
+      className: "deleteForm"
+    }, /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      name: "name",
+      value: domo.name,
+      readOnly: true
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      name: "age",
+      value: domo.age,
+      readOnly: true
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      name: "cool",
+      value: domo.cool,
+      readOnly: true
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "deleteButton",
+      type: "submit",
+      value: "X"
+    })));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "domoList"
