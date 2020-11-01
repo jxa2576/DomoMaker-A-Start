@@ -1,3 +1,4 @@
+const { get } = require('mongoose');
 const models = require('../models');
 
 const { Domo } = models;
@@ -42,5 +43,20 @@ const makeDomo = (req, res) => {
   return domoPromise;
 };
 
+const getDomos = (request, response) => {
+  const req = request;
+  const res = response;
+
+  return Domo.DomoModel.findByOwner(req.session.account._id, (err,docs) => {
+    if(err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
+
+    return res.json({ domos: docs});
+  });
+};
+
 module.exports.makerPage = makerPage;
+module.exports.getDomos = getDomos;
 module.exports.make = makeDomo;

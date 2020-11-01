@@ -35,11 +35,11 @@ let redisURL = {
 };
 
 let redisPASS = '2NU81l9ncuUpq5eo9cnUl5myWtAIRCeI';
-if(process.env.REDISCLOUD_URL){
+if (process.env.REDISCLOUD_URL) {
   redisURL = url.parse(process.env.REDISCLOUD_URL);
   [, redisPASS] = redisURL.auth.split(':');
 }
-let redisClient = redis.createClient({
+const redisClient = redis.createClient({
   host: redisURL.hostname,
   port: redisURL.port,
   password: redisPASS,
